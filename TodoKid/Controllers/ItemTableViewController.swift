@@ -22,6 +22,8 @@ class ItemTableViewController: SwipeTableViewController {
     
     var items: Results<Item>?
     
+    @IBOutlet var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +52,7 @@ class ItemTableViewController: SwipeTableViewController {
         
         navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
         
-//        searchBar.barTintColor = navBarColour
+        searchBar.barTintColor = navBarColour
         
     }
     
@@ -139,4 +141,23 @@ class ItemTableViewController: SwipeTableViewController {
             }
         }
     }
+}
+
+extension ItemTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        loadItems()
+        
+        if searchBar.text?.count == 0 {
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        } else {
+            items = items?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "date", ascending: true)
+        }
+        
+        tableView.reloadData()
+    }
+    
 }

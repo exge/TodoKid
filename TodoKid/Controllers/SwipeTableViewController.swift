@@ -13,6 +13,11 @@ import ChameleonFramework
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
     
+    override func viewDidLoad() {
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 80
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! SwipeTableViewCell
         cell.delegate = self
