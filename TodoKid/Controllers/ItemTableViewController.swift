@@ -70,9 +70,10 @@ class ItemTableViewController: SwipeTableViewController {
         cell.textLabel?.text = item.title
         cell.accessoryType = item.done ? .checkmark : .none
         
-        if let backgroundColor = UIColor(hexString: (selectedCategory?.color)!)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat((items?.count)!)) {
+        if let backgroundColor = UIColor(hexString: (selectedCategory?.color)!)?.darken(byPercentage: CGFloat(indexPath.row + 1) / CGFloat((items?.count)! + 1)) {
             cell.backgroundColor = backgroundColor
             cell.textLabel?.textColor = ContrastColorOf(backgroundColor, returnFlat: true)
+            cell.tintColor = ContrastColorOf(backgroundColor, returnFlat: true)
         }
         
         return cell
